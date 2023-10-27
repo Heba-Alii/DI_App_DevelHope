@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.mealapp.databinding.ActivityMainBinding
+import com.example.mealapp.ui.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -23,18 +24,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startDataLoading() {
-        binding.progree.visibility=View.VISIBLE
+        binding.progree.visibility = View.VISIBLE
 
         val mealsAdapter = MealsAdapter()
-        lifecycleScope.launch {
-            mealsViewModel.categories.collect{
-                mealsAdapter.submitList(it?.categories)
-                binding.recycler.adapter = mealsAdapter
-
+        lifecycleScope.launchWhenStarted {
+            mealsViewModel.categories.collect() {
+                when (it) {
+                    is DataState.Failure -> it.throwable.message
+                    is DataState.Loading -> binding.progree.visibility = View.VISIBLE
+                    is DataState.Success -> {
+                        binding.progree.visibility = View.GONE
+                        mealsAdapter.submitList(it.data.categories)
+                        binding.recycler.adapter = mealsAdapter
+                    }
+                    null -> null
+                }
             }
-
         }
-
     }
 
 }
