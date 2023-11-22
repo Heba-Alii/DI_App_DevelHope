@@ -1,6 +1,6 @@
 package com.example.mealapp.data.repo
 
-import com.example.mealapp.data.remote.ApiService
+import com.example.mealapp.data.dataSource.remote.ApiService
 import com.example.mealapp.domain.model.CategoryResponse
 import com.example.mealapp.domain.repo.MealsRepo
 import kotlinx.coroutines.Dispatchers
