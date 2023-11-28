@@ -21,6 +21,10 @@ class MealsViewModel @Inject constructor(private val getMealzUseCase: GetMealzUs
         MutableStateFlow(null)
     public val categories: StateFlow<DataState<CategoryResponse>?> = _categories
 
+    init {
+        getMeals()
+    }
+
     fun getMeals() {
         viewModelScope.launch {
             getMealzUseCase.getMeals().onStart {

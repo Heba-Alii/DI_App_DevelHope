@@ -11,13 +11,11 @@ import com.example.mealapp.domain.model.Categories
 
 class MealsAdapter() : ListAdapter<Categories, MealsAdapter.ViewHolder>(CategoryDiffCallback()) {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemBinding =
             CategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(itemBinding)
     }
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
@@ -27,14 +25,14 @@ class MealsAdapter() : ListAdapter<Categories, MealsAdapter.ViewHolder>(Category
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(categories: Categories) {
-            itemBinding.apply {
-                categoryNameTv.text = categories.strCategory
-                categoryDescTv.text = categories.strCategoryDescription
-                Glide.with(itemBinding.root.context)
-                    .load(categories.strCategoryThumb)
-                    .into(itemBinding.mealImage)
-            }
-
+            itemBinding.item = categories
+//            itemBinding.apply {
+//                categoryNameTv.text = categories.strCategory
+//                categoryDescTv.text = categories.strCategoryDescription
+//                Glide.with(itemBinding.root.context)
+//                    .load(categories.strCategoryThumb)
+//                    .into(itemBinding.mealImage)
+//            }
         }
     }
 }
