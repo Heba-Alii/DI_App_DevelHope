@@ -26,13 +26,7 @@ class MealsAdapter() : ListAdapter<Categories, MealsAdapter.ViewHolder>(Category
 
         fun bind(categories: Categories) {
             itemBinding.item = categories
-//            itemBinding.apply {
-//                categoryNameTv.text = categories.strCategory
-//                categoryDescTv.text = categories.strCategoryDescription
-//                Glide.with(itemBinding.root.context)
-//                    .load(categories.strCategoryThumb)
-//                    .into(itemBinding.mealImage)
-//            }
+
         }
     }
 }
