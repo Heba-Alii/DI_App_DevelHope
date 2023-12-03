@@ -7,9 +7,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import retrofit2.Response
 
 class MealsRepoImpl(private val apiService: ApiService) : MealsRepo {
-    override suspend fun getMealsFromRemote(): Flow<CategoryResponse> =
+    override suspend fun getMealsFromRemote(): Flow<Response<CategoryResponse>> =
         flow {
             emit(apiService.getMeals())
         }.flowOn(Dispatchers.IO)

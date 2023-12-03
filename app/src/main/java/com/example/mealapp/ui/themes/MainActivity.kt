@@ -6,7 +6,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.mealapp.databinding.ActivityMainBinding
+import com.example.mealapp.ui.util.ApiCodes
 import com.example.mealapp.ui.util.DataState
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -37,6 +39,35 @@ class MainActivity : AppCompatActivity() {
                         mealsAdapter.submitList(it.data.categories)
                         binding.recycler.adapter = mealsAdapter
                     }
+                    null -> null
+                    else -> {
+                        "Please try again"
+                    }
+                }
+            }
+
+        }
+        lifecycleScope.launch {
+            mealsViewModel.errorState.collect() {
+                when (it) {
+                    ApiCodes.SUCCESS -> {
+                        Snackbar.make(binding.root, "Success", Snackbar.LENGTH_SHORT).show()
+                    }
+                    ApiCodes.NotFound -> Snackbar.make(
+                        binding.root,
+                        "Not Found",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+
+                    ApiCodes.CONNECTIONTimeOut -> Snackbar.make(
+                        binding.root,
+                        "Request TIme Out",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+
+                    ApiCodes.ERROR -> Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+                        .show()
+
                     null -> null
                 }
             }
