@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
                         mealsAdapter.submitList(it.data.categories)
                         binding.recycler.adapter = mealsAdapter
                     }
+
                     null -> null
                     else -> {
                         "Please try again"
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
                     ApiCodes.SUCCESS -> {
                         Snackbar.make(binding.root, "Success", Snackbar.LENGTH_SHORT).show()
                     }
+
                     ApiCodes.NotFound -> Snackbar.make(
                         binding.root,
                         "Not Found",
